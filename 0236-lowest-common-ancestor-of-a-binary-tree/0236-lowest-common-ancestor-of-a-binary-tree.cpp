@@ -1,0 +1,13 @@
+// Logic-> On either of the side if we find our required nodes then we return them else NULL and if both the sides give our required node then we return curr node.
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* curr, TreeNode* p, TreeNode* q) {
+        if(!curr || curr==p || curr==q) return curr;
+        TreeNode* l=lowestCommonAncestor(curr->left,p,q);
+        TreeNode* r=lowestCommonAncestor(curr->right,p,q);
+        if(!l) return r;
+        else if(!r) return l;
+        else return curr;
+    }
+};
