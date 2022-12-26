@@ -11,12 +11,12 @@
  */
 class Solution {
 public:
-    int target,count=1;
+    int target=-1,count=1;
     void dfs(TreeNode* curr,int k){
         if(!curr) return;
-        dfs(curr->left,k);
+        if(target==-1)dfs(curr->left,k);
         if(count++==k) target=curr->val;
-        dfs(curr->right,k);
+        if(target==-1)dfs(curr->right,k);
     }
     
     int kthSmallest(TreeNode* root, int k) {
