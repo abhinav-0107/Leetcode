@@ -4,27 +4,27 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution{
-	public:
-	void topo(int curr,vector<int>& vis,vector<int> adj[],stack<int>& st){
-	    vis[curr]=1;
-	    for(auto node: adj[curr]){
-	        if(!vis[node]) topo(node,vis,adj,st);
-	    }
-	    st.push(curr);
-	}
-	
+    public:
 	vector<int> topoSort(int n, vector<int> adj[]){
-	   vector<int> vis(n,0);
-	   stack<int>st;
-	   for(int node=0;node<n;node++){
-	       if(!vis[node]) topo(node,vis,adj,st);
-	   }
-	   vector<int> ans;
-	   while(!st.empty()){
-	       ans.push_back(st.top());
-	       st.pop();
-	   }
-	   return ans;
+	    vector<int> indegree(n,0);
+	    vector<int> topo;
+	    queue<int>q;
+	    for(int i=0;i<n;i++){
+	       for(auto j:adj[i]) indegree[j]++;
+	    }
+	    for(int node=0;node<n;node++){
+	        if(!indegree[node]) q.push(node);
+	    }
+	    while(!q.empty()){
+	        int node=q.front();
+	        q.pop();
+	        topo.push_back(node);
+	        for(auto i:adj[node]){
+	            indegree[i]--;
+	            if(!indegree[i]) q.push(i);
+	        }
+	    }
+	    return topo;
 	}
 };
 
